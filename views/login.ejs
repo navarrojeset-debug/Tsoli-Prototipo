@@ -1,0 +1,53 @@
+<%- include('partials/head', { title: 'Acceso seguro' }) %>
+<body class="min-h-screen bg-background text-slate-100">
+  <main class="grid min-h-screen lg:grid-cols-2">
+    <section class="relative flex min-h-[300px] flex-col justify-between overflow-hidden border-b border-line bg-surface p-7 sm:p-12 lg:border-b-0 lg:border-r xl:p-16">
+      <div class="absolute inset-0 opacity-30" aria-hidden="true" style="background-image:linear-gradient(rgba(76,215,246,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(76,215,246,.07) 1px,transparent 1px);background-size:32px 32px"></div>
+      <div class="relative">
+        <a class="flex items-center gap-3" href="/dashboard">
+          <span class="grid h-11 w-11 place-items-center rounded-2xl bg-cyan text-slate-950"><span class="material-symbols-outlined">hub</span></span>
+          <span><span class="block text-lg font-bold text-white">TSOLI<span class="text-cyan"> OS</span></span><span class="text-[10px] uppercase tracking-[.2em] text-soft">Executive Core</span></span>
+        </a>
+      </div>
+      <div class="relative my-12 max-w-xl">
+        <span class="badge badge-success">Red global activa · 99.99% ilustrativo</span>
+        <h1 class="mt-6 text-4xl font-bold leading-tight text-white sm:text-5xl">Operación clara.<br><span class="text-cyan">Decisiones con contexto.</span></h1>
+        <p class="mt-5 max-w-lg text-sm leading-7 text-soft">Unifica clientes, cotizaciones y seguimientos en una sola vista ejecutiva para tu equipo.</p>
+        <div class="panel mt-8 max-w-sm p-5">
+          <div class="flex items-center justify-between"><p class="text-xs font-semibold text-white">Resumen de hoy</p><span class="text-[10px] text-cyan">DEMO</span></div>
+          <div class="mt-5 grid grid-cols-2 gap-4">
+            <div><p class="text-[10px] text-soft">Clientes activos</p><p class="mt-1 text-xl font-bold text-white">04</p></div>
+            <div><p class="text-[10px] text-soft">Pipeline MXN</p><p class="mt-1 text-xl font-bold text-cyan">$682 mil</p></div>
+          </div>
+        </div>
+      </div>
+      <p class="relative text-[10px] text-soft">© 2026 Tsoli · Prototipo local de navegación</p>
+    </section>
+
+    <section class="flex items-center justify-center px-5 py-12 sm:px-10">
+      <div class="w-full max-w-md">
+        <p class="text-[11px] font-semibold uppercase tracking-[.2em] text-cyan">Acceso al espacio</p>
+        <h2 class="mt-3 text-3xl font-bold text-white">Bienvenido de nuevo</h2>
+        <p class="mt-2 text-sm text-soft">Ingresa cualquier correo y contraseña para abrir la demo.</p>
+        <% if (error) { %><div class="mt-5 rounded-xl border border-danger/30 bg-danger/10 p-3 text-xs text-rose-200"><%= error %></div><% } %>
+        <form class="mt-7 space-y-5" action="/login" method="post">
+          <label class="block text-xs font-medium text-slate-200">Correo de trabajo
+            <input name="email" type="email" required autocomplete="username" class="field mt-2" placeholder="nombre@empresa.mx">
+          </label>
+          <label class="block text-xs font-medium text-slate-200">Contraseña
+            <input name="password" type="password" required autocomplete="current-password" class="field mt-2" placeholder="••••••••">
+          </label>
+          <div class="flex items-center justify-between text-xs text-soft">
+            <label class="flex items-center gap-2"><input type="checkbox" class="accent-cyan"> Mantener sesión (solo visual)</label>
+            <span class="text-cyan">¿Necesitas ayuda?</span>
+          </div>
+          <button type="submit" class="w-full rounded-full bg-cyan px-5 py-3.5 text-sm font-bold text-slate-950 transition hover:bg-white">Entrar a TSOLI OS</button>
+        </form>
+        <div class="my-6 flex items-center gap-3 text-[10px] text-soft"><span class="h-px flex-1 bg-line"></span>ENTORNO DE PRUEBA<span class="h-px flex-1 bg-line"></span></div>
+        <p class="rounded-xl border border-line bg-surface p-4 text-xs leading-5 text-soft">Este acceso es una simulación: no autentica usuarios ni crea una sesión segura. Los datos se guardan únicamente en <code>data/db.json</code>.</p>
+        <a href="/dashboard" class="mt-5 block text-center text-xs text-soft hover:text-cyan">Continuar directamente al dashboard →</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

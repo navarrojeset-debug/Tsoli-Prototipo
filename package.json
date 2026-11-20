@@ -1,0 +1,17 @@
+{
+  "name": "tsoli-os-prototype",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Prototipo ejecutivo de TSOLI OS basado en las pantallas de Stitch",
+  "type": "module",
+  "scripts": {
+    "start": "node --env-file=.env server.js",
+    "dev": "node --env-file=.env --watch server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "openai": "^7.62.0"
+  }
+}

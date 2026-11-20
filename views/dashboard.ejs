@@ -1,0 +1,174 @@
+<%- include('partials/head', { title: 'Dashboard ejecutivo' }) %>
+<body>
+<%- include('partials/sidebar', { activePage }) %>
+<div class="lg:pl-64">
+  <%- include('partials/topbar') %>
+  <main class="px-4 pb-12 pt-36 sm:px-6 lg:px-10 lg:pt-24">
+    <%- include('partials/page-header', {
+      eyebrow: 'Resumen ejecutivo · Jueves 19 de noviembre',
+      heading: `Hola, ${database.usuario.nombre.split(' ')[0]}`,
+      description: 'Una vista clara de tus clientes, oportunidades y operación de hoy.',
+      actionHref: '/proyectos#nueva-cotizacion',
+      actionLabel: 'Nueva cotización',
+      actionIcon: 'add'
+    }) %>
+
+    <section class="mb-7 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <article class="panel p-5">
+        <div class="flex items-center justify-between text-sm text-soft"><span>Clientes activos</span><span class="material-symbols-outlined text-cyan">groups</span></div>
+        <p class="mt-4 text-3xl font-bold text-white"><%= metrics.clients %></p>
+        <p class="mt-2 text-xs text-soft">de <%= database.clientes.length %> cuentas registradas</p>
+      </article>
+      <article class="panel p-5">
+        <div class="flex items-center justify-between text-sm text-soft"><span>Cotizaciones abiertas</span><span class="material-symbols-outlined text-cyan">request_quote</span></div>
+        <p class="mt-4 text-3xl font-bold text-white"><%= formatMXN(metrics.pipeline) %></p>
+        <p class="mt-2 text-xs text-soft">MXN · propuesta y negociación</p>
+      </article>
+      <article class="panel p-5">
+        <div class="flex items-center justify-between text-sm text-soft"><span>Seguimientos pendientes</span><span class="material-symbols-outlined text-cyan">chat</span></div>
+        <p class="mt-4 text-3xl font-bold text-white"><%= metrics.followups %></p>
+        <p class="mt-2 text-xs text-soft">por WhatsApp con tus clientes</p>
+      </article>
+      <article class="panel p-5">
+        <div class="flex items-center justify-between text-sm text-soft"><span>Alertas de servidor</span><span class="material-symbols-outlined <%= metrics.alerts ? 'text-amber' : 'text-cyan' %>">monitor_heart</span></div>
+        <p class="mt-4 text-3xl font-bold text-white"><%= metrics.alerts %></p>
+        <p class="mt-2 text-xs text-soft"><%= metrics.tasks %> tareas operativas en curso</p>
+      </article>
+    </section>
+
+    <section class="mb-7 grid gap-5 xl:grid-cols-[1.4fr_.8fr]">
+      <article class="panel p-5 sm:p-6">
+        <div class="mb-5 flex items-start justify-between gap-4">
+          <div>
+            <p class="text-sm font-semibold text-white">Actividad comercial</p>
+            <p class="mt-1 text-xs text-soft">Cotizaciones creadas por mes · últimos seis meses</p>
+          </div>
+          <span class="rounded-full bg-cyan/10 px-3 py-1 text-xs font-semibold text-cyan">2026</span>
+        </div>
+        <div class="flex h-44 items-end gap-3 border-b border-line pb-2 sm:gap-5">
+          <% database.actividadMensual.forEach((month) => { %>
+            <div class="flex h-full flex-1 flex-col items-center justify-end gap-2">
+              <span class="text-[10px] text-soft"><%= month.valor %>%</span>
+              <div class="w-full max-w-12 rounded-t-lg bg-gradient-to-t from-cyan/40 to-cyan" style="height: <%= month.valor %>%"></div>
+              <span class="text-[10px] text-soft"><%= month.mes %></span>
+            </div>
+          <% }); %>
+        </div>
+        <div class="mt-4 flex flex-wrap gap-5 text-xs text-soft">
+          <span><span class="mr-2 inline-block h-2 w-2 rounded-full bg-cyan"></span>Actividad del equipo</span>
+          <span><span class="mr-2 inline-block h-2 w-2 rounded-full bg-emerald-400"></span><%= database.tareas.filter((task) => task.estado === 'Completada').length %> tareas completadas</span>
+        </div>
+      </article>
+
+      <article class="panel p-5 sm:p-6" id="alertas">
+        <div class="mb-4 flex items-center justify-between">
+          <div>
+            <p class="text-sm font-semibold text-white">Estado de servidores</p>
+            <p class="mt-1 text-xs text-soft"><%= activeAlerts.length %> alertas requieren atención</p>
+          </div>
+          <span class="material-symbols-outlined text-cyan">dns</span>
+        </div>
+        <div class="space-y-3">
+          <% activeAlerts.forEach((alert) => { %>
+            <div class="rounded-xl border border-line bg-background/60 p-3" data-searchable>
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <p class="text-sm font-semibold text-white"><%= alert.servicio %></p>
+                  <p class="mt-1 text-xs leading-5 text-soft"><%= alert.mensaje %></p>
+                </div>
+                <span class="badge <%= alert.severidad === 'Crítica' ? 'badge-danger' : alert.severidad === 'Alta' ? 'badge-amber' : 'badge-neutral' %>"><%= alert.severidad %></span>
+              </div>
+              <div class="mt-3 flex items-center justify-between text-[10px] text-soft">
+                <span><%= alert.region %></span>
+                <form action="/alertas/<%= alert.id %>/resolver" method="post">
+                  <button class="font-semibold text-cyan hover:text-white" type="submit">Marcar resuelta</button>
+                </form>
+              </div>
+            </div>
+          <% }); %>
+          <% if (!activeAlerts.length) { %>
+            <p class="rounded-xl border border-line p-4 text-sm text-soft">No hay alertas activas.</p>
+          <% } %>
+        </div>
+      </article>
+    </section>
+
+    <section class="mb-7 grid gap-5 xl:grid-cols-[1.25fr_.75fr]">
+      <article class="panel overflow-hidden">
+        <div class="flex items-center justify-between gap-4 px-5 py-5 sm:px-6">
+          <div>
+            <p class="text-sm font-semibold text-white">Cotizaciones recientes</p>
+            <p class="mt-1 text-xs text-soft">Importes en pesos mexicanos (MXN)</p>
+          </div>
+          <a class="text-xs font-semibold text-cyan hover:text-white" href="/proyectos">Ver todas <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-[620px] text-left text-xs">
+            <thead class="bg-background/60 text-[10px] uppercase tracking-wider text-soft">
+              <tr><th class="px-5 py-3 font-medium">Cliente</th><th class="px-4 py-3 font-medium">Concepto</th><th class="px-4 py-3 font-medium">Total</th><th class="px-5 py-3 font-medium">Estado</th></tr>
+            </thead>
+            <tbody>
+              <% quotes.slice(0, 5).forEach((quote) => { %>
+                <tr class="table-row hover:bg-white/[.02]" data-searchable>
+                  <td class="px-5 py-4 font-semibold text-slate-100"><%= quote.clienteNombre %><span class="mt-1 block font-normal text-soft"><%= quote.folio %></span></td>
+                  <td class="max-w-56 px-4 py-4 text-soft"><%= quote.concepto %></td>
+                  <td class="whitespace-nowrap px-4 py-4 font-semibold text-white"><%= formatMXN(quote.total) %></td>
+                  <td class="px-5 py-4"><span class="badge <%= quote.estado === 'Aprobada' ? 'badge-success' : quote.estado === 'En negociación' ? 'badge-amber' : 'badge-neutral' %>"><%= quote.estado %></span></td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="panel p-5 sm:p-6">
+        <div class="mb-4 flex items-center justify-between">
+          <div>
+            <p class="text-sm font-semibold text-white">Seguimiento por WhatsApp</p>
+            <p class="mt-1 text-xs text-soft">Próximos contactos programados</p>
+          </div>
+          <span class="material-symbols-outlined text-cyan">forum</span>
+        </div>
+        <div class="space-y-4">
+          <% followups.filter((item) => item.estado !== 'Completado').slice(0, 3).forEach((item) => { %>
+            <div class="border-b border-line pb-4 last:border-0 last:pb-0" data-searchable>
+              <div class="flex items-center justify-between gap-3">
+                <p class="text-sm font-semibold text-white"><%= item.contacto %></p>
+                <span class="text-[10px] text-cyan"><%= item.estado %></span>
+              </div>
+              <p class="mt-1 text-xs text-soft"><%= item.clienteNombre %></p>
+              <p class="mt-2 text-xs leading-5 text-slate-300"><%= item.proximoPaso %></p>
+            </div>
+          <% }); %>
+        </div>
+        <a href="/proyectos#seguimientos" class="mt-5 inline-flex text-xs font-semibold text-cyan hover:text-white">Abrir seguimiento <span class="ml-1">→</span></a>
+      </article>
+    </section>
+
+    <section class="panel p-5 sm:p-6">
+      <div class="mb-4 flex items-center justify-between">
+        <div>
+          <p class="text-sm font-semibold text-white">Cuentas de clientes</p>
+          <p class="mt-1 text-xs text-soft">Relación activa y valor anual estimado</p>
+        </div>
+        <span class="material-symbols-outlined text-cyan">business_center</span>
+      </div>
+      <div class="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+        <% database.clientes.forEach((client) => { %>
+          <article class="rounded-xl border border-line bg-background/50 p-4" data-searchable>
+            <div class="flex items-center gap-3">
+              <span class="grid h-10 w-10 place-items-center rounded-full bg-cyan/10 text-xs font-bold text-cyan"><%= client.iniciales %></span>
+              <div class="min-w-0 flex-1">
+                <p class="truncate text-sm font-semibold text-white"><%= client.empresa %></p>
+                <p class="mt-1 truncate text-xs text-soft"><%= client.nombre %> · <%= client.sector %></p>
+              </div>
+              <span class="badge <%= client.estado === 'Activo' ? 'badge-success' : 'badge-neutral' %>"><%= client.estado %></span>
+            </div>
+            <p class="mt-4 text-xs text-soft">Valor anual <span class="float-right font-semibold text-slate-100"><%= formatMXN(client.valorAnual) %></span></p>
+          </article>
+        <% }); %>
+      </div>
+    </section>
+  </main>
+</div>
+<%- include('partials/shell-end') %>

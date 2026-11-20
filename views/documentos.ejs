@@ -1,0 +1,59 @@
+<%- include('partials/head', { title: 'Documentos y conocimiento' }) %>
+<body>
+<%- include('partials/sidebar', { activePage }) %>
+<div class="lg:pl-64">
+  <%- include('partials/topbar') %>
+  <main class="px-4 pb-12 pt-36 sm:px-6 lg:px-10 lg:pt-24">
+    <%- include('partials/page-header', {
+      eyebrow: 'Repositorio vectorial activo',
+      heading: 'Base de conocimiento y documentos',
+      description: 'Consulta documentación comercial y operativa vinculada a las cuentas de clientes.'
+    }) %>
+
+    <section class="mb-7 grid gap-4 sm:grid-cols-3">
+      <article class="panel p-5"><p class="text-xs text-soft">Documentos</p><p class="mt-2 text-2xl font-bold text-white"><%= documents.length %></p><p class="mt-1 text-xs text-soft">archivos locales de ejemplo</p></article>
+      <article class="panel p-5"><p class="text-xs text-soft">Indexados</p><p class="mt-2 text-2xl font-bold text-white"><%= documents.filter((item) => item.estado === 'Indexado').length %></p><p class="mt-1 text-xs text-soft">disponibles para consulta</p></article>
+      <article class="panel p-5"><p class="text-xs text-soft">Clientes vinculados</p><p class="mt-2 text-2xl font-bold text-white"><%= new Set(documents.map((item) => item.clienteId)).size %></p><p class="mt-1 text-xs text-soft">cuentas con documentación</p></article>
+    </section>
+
+    <section class="mb-6 grid gap-5 lg:grid-cols-[1.2fr_.8fr]">
+      <article class="panel flex flex-col justify-between gap-5 p-5 sm:flex-row sm:items-center sm:p-6">
+        <div class="flex items-start gap-3">
+          <span class="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-cyan/10 text-cyan"><span class="material-symbols-outlined">psychology</span></span>
+          <div><p class="text-sm font-semibold text-white">Copiloto documental TSOLI</p><p class="mt-1 max-w-xl text-xs leading-5 text-soft">La búsqueda de esta pantalla filtra documentos locales. La indexación semántica real no está conectada en este prototipo.</p></div>
+        </div>
+        <a href="/copiloto" class="shrink-0 rounded-full border border-line px-4 py-2 text-xs font-semibold text-cyan hover:bg-raised">Abrir copiloto</a>
+      </article>
+      <article class="panel flex items-center justify-between gap-4 p-5 sm:p-6">
+        <div><p class="text-sm font-semibold text-white">Buscar en el repositorio</p><p class="mt-1 text-xs text-soft">Usa el campo de búsqueda superior.</p></div>
+        <span class="material-symbols-outlined text-2xl text-cyan">manage_search</span>
+      </article>
+    </section>
+
+    <section class="panel overflow-hidden">
+      <div class="flex items-center justify-between gap-4 px-5 py-5 sm:px-6">
+        <div><p class="text-sm font-semibold text-white">Archivos del equipo</p><p class="mt-1 text-xs text-soft">Documentos de propuestas, contratos y requisitos</p></div>
+        <span class="badge badge-neutral"><%= documents.length %> elementos</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full min-w-[720px] text-left text-xs">
+          <thead class="bg-background/60 text-[10px] uppercase tracking-wider text-soft">
+            <tr><th class="px-5 py-3 font-medium">Nombre</th><th class="px-4 py-3 font-medium">Cliente</th><th class="px-4 py-3 font-medium">Categoría</th><th class="px-4 py-3 font-medium">Actualizado</th><th class="px-5 py-3 font-medium">Estado</th></tr>
+          </thead>
+          <tbody>
+            <% documents.forEach((document) => { %>
+              <tr class="table-row hover:bg-white/[.02]" data-searchable>
+                <td class="px-5 py-4"><div class="flex items-center gap-3"><span class="grid h-9 w-9 place-items-center rounded-xl bg-raised text-cyan"><span class="material-symbols-outlined text-[18px]">description</span></span><span class="font-semibold text-slate-100"><%= document.nombre %><span class="mt-1 block font-normal text-soft"><%= document.tamano %></span></span></div></td>
+                <td class="px-4 py-4 text-slate-200"><%= document.clienteNombre %></td>
+                <td class="px-4 py-4 text-soft"><%= document.categoria %></td>
+                <td class="whitespace-nowrap px-4 py-4 text-soft"><%= document.actualizado %></td>
+                <td class="px-5 py-4"><span class="badge <%= document.estado === 'Indexado' ? 'badge-success' : 'badge-amber' %>"><%= document.estado %></span></td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+<%- include('partials/shell-end') %>

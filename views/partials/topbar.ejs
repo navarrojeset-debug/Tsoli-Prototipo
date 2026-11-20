@@ -1,0 +1,27 @@
+<header class="fixed inset-x-0 top-0 z-20 border-b border-line/70 bg-background/85 backdrop-blur-xl lg:left-64">
+  <div class="flex h-[68px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+    <label class="flex w-full max-w-md items-center gap-2 rounded-full border border-line bg-surface px-3 py-2 text-soft focus-within:border-cyan/70">
+      <span class="material-symbols-outlined text-[18px]">search</span>
+      <input class="w-full bg-transparent text-sm text-slate-100 outline-none placeholder:text-soft/70" type="search" data-filter-input placeholder="Buscar en esta pantalla...">
+      <span class="hidden rounded-md bg-raised px-2 py-1 text-[10px] sm:inline">Ctrl K</span>
+    </label>
+    <div class="flex shrink-0 items-center gap-3">
+      <span class="hidden items-center gap-2 rounded-full border border-line bg-surface px-3 py-2 text-xs text-soft sm:flex">
+        <span class="h-2 w-2 rounded-full bg-emerald-400"></span> Entorno de prueba
+      </span>
+      <a href="/dashboard#alertas" aria-label="Ver alertas" class="relative grid h-10 w-10 place-items-center rounded-full bg-surface text-soft transition hover:text-cyan">
+        <span class="material-symbols-outlined">notifications</span>
+        <span class="absolute right-2 top-2 h-2 w-2 rounded-full bg-cyan"></span>
+      </a>
+      <a class="flex items-center gap-2 rounded-full bg-panel py-1 pl-1 pr-3" href="/configuracion">
+        <span class="grid h-8 w-8 place-items-center rounded-full bg-cyan/15 text-xs font-bold text-cyan"><%= database?.usuario?.nombre?.split(' ').map((part) => part[0]).slice(0, 2).join('') || 'CM' %></span>
+        <span class="hidden text-xs font-semibold text-slate-100 sm:block"><%= database?.usuario?.nombre || 'Equipo Tsoli' %></span>
+      </a>
+    </div>
+  </div>
+  <nav class="mobile-nav flex gap-1 overflow-x-auto px-3 pb-3 lg:hidden">
+    <% navigation.forEach((item) => { %>
+      <a href="<%= item.href %>" class="whitespace-nowrap rounded-full px-3 py-2 text-xs <%= activePage === item.id ? 'bg-cyan text-slate-950' : 'bg-surface text-soft' %>"><%= item.label %></a>
+    <% }); %>
+  </nav>
+</header>

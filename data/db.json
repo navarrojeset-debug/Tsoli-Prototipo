@@ -1,0 +1,379 @@
+{
+  "usuario": {
+    "nombre": "Carlos Mendoza",
+    "cargo": "Director de Operaciones",
+    "correo": "carlos.mendoza@tsoli.mx",
+    "empresa": "Tsoli México",
+    "telefono": "+52 55 4162 9087",
+    "zonaHoraria": "America/Mexico_City",
+    "idioma": "Español (México)",
+    "notificaciones": true
+  },
+  "suscripcion": {
+    "planId": "pro",
+    "periodo": "anual",
+    "renovacion": "2027-11-19",
+    "usuarios": 12
+  },
+  "clientes": [
+    {
+      "id": 1,
+      "nombre": "Mariana Torres",
+      "empresa": "Grupo Horizonte",
+      "sector": "Logística",
+      "correo": "mariana.torres@grupohorizonte.mx",
+      "telefono": "+52 55 7012 4480",
+      "estado": "Activo",
+      "valorAnual": 1860000,
+      "iniciales": "MT"
+    },
+    {
+      "id": 2,
+      "nombre": "Javier Salgado",
+      "empresa": "Clínica San Rafael",
+      "sector": "Salud",
+      "correo": "j.salgado@sanrafael.mx",
+      "telefono": "+52 33 1984 2201",
+      "estado": "Activo",
+      "valorAnual": 1240000,
+      "iniciales": "JS"
+    },
+    {
+      "id": 3,
+      "nombre": "Fernanda Ruiz",
+      "empresa": "Norte Verde Alimentos",
+      "sector": "Alimentos",
+      "correo": "fernanda.ruiz@norteverde.mx",
+      "telefono": "+52 81 3055 1182",
+      "estado": "Prospecto",
+      "valorAnual": 780000,
+      "iniciales": "FR"
+    },
+    {
+      "id": 4,
+      "nombre": "Roberto Cárdenas",
+      "empresa": "Financiera del Bajío",
+      "sector": "Servicios financieros",
+      "correo": "roberto.cardenas@fdb.com.mx",
+      "telefono": "+52 477 441 8060",
+      "estado": "Activo",
+      "valorAnual": 2340000,
+      "iniciales": "RC"
+    },
+    {
+      "id": 5,
+      "nombre": "Lucía Paredes",
+      "empresa": "Estudio Umbral",
+      "sector": "Servicios profesionales",
+      "correo": "lucia.paredes@umbral.mx",
+      "telefono": "+52 55 6811 7305",
+      "estado": "Prospecto",
+      "valorAnual": 420000,
+      "iniciales": "LP"
+    }
+  ],
+  "cotizaciones": [
+    {
+      "id": 1,
+      "folio": "COT-2026-084",
+      "clienteId": 1,
+      "concepto": "Automatización de rutas y tablero de entregas",
+      "fecha": "2026-11-18",
+      "vigencia": "2026-12-18",
+      "subtotal": 180000,
+      "iva": 28800,
+      "total": 208800,
+      "estado": "En negociación",
+      "probabilidad": 75,
+      "responsable": "Carlos Mendoza"
+    },
+    {
+      "id": 2,
+      "folio": "COT-2026-083",
+      "clienteId": 2,
+      "concepto": "Portal de seguimiento de pacientes",
+      "fecha": "2026-11-17",
+      "vigencia": "2026-12-17",
+      "subtotal": 96000,
+      "iva": 15360,
+      "total": 111360,
+      "estado": "Enviada",
+      "probabilidad": 55,
+      "responsable": "Ana Beltrán"
+    },
+    {
+      "id": 3,
+      "folio": "COT-2026-081",
+      "clienteId": 3,
+      "concepto": "Integración de inventario y pronóstico de demanda",
+      "fecha": "2026-11-14",
+      "vigencia": "2026-12-14",
+      "subtotal": 245000,
+      "iva": 39200,
+      "total": 284200,
+      "estado": "Borrador",
+      "probabilidad": 35,
+      "responsable": "Carlos Mendoza"
+    },
+    {
+      "id": 4,
+      "folio": "COT-2026-079",
+      "clienteId": 4,
+      "concepto": "Diagnóstico de procesos y cumplimiento",
+      "fecha": "2026-11-12",
+      "vigencia": "2026-12-12",
+      "subtotal": 132000,
+      "iva": 21120,
+      "total": 153120,
+      "estado": "Aprobada",
+      "probabilidad": 100,
+      "responsable": "Ana Beltrán"
+    },
+    {
+      "id": 5,
+      "folio": "COT-2026-076",
+      "clienteId": 5,
+      "concepto": "Asistente interno para gestión de proyectos",
+      "fecha": "2026-11-09",
+      "vigencia": "2026-12-09",
+      "subtotal": 68000,
+      "iva": 10880,
+      "total": 78880,
+      "estado": "En negociación",
+      "probabilidad": 60,
+      "responsable": "Carlos Mendoza"
+    }
+  ],
+  "alertasServidor": [
+    {
+      "id": 1,
+      "servicio": "API de cotizaciones",
+      "severidad": "Alta",
+      "region": "Centro de México",
+      "hora": "2026-11-19T10:42:00-06:00",
+      "mensaje": "Latencia elevada: promedio de 840 ms durante los últimos 10 minutos.",
+      "estado": "Activa"
+    },
+    {
+      "id": 2,
+      "servicio": "Cola de notificaciones",
+      "severidad": "Media",
+      "region": "Norteamérica",
+      "hora": "2026-11-19T09:18:00-06:00",
+      "mensaje": "Se acumularon 126 mensajes; el servicio está procesando el rezago.",
+      "estado": "Activa"
+    },
+    {
+      "id": 3,
+      "servicio": "Almacenamiento de documentos",
+      "severidad": "Crítica",
+      "region": "Centro de México",
+      "hora": "2026-11-19T08:51:00-06:00",
+      "mensaje": "El espacio disponible bajó de 10%. Revisa los archivos temporales.",
+      "estado": "Activa"
+    },
+    {
+      "id": 4,
+      "servicio": "Autenticación",
+      "severidad": "Baja",
+      "region": "Global",
+      "hora": "2026-11-18T18:24:00-06:00",
+      "mensaje": "Rotación de certificados completada correctamente.",
+      "estado": "Resuelta"
+    }
+  ],
+  "seguimientosWhatsApp": [
+    {
+      "id": 1,
+      "clienteId": 1,
+      "contacto": "Mariana Torres",
+      "mensaje": "¿Pudiste revisar la propuesta de automatización de rutas? Podemos ajustar el calendario de implementación.",
+      "fecha": "2026-11-19T11:30:00-06:00",
+      "proximoPaso": "Confirmar alcance de la fase piloto",
+      "estado": "Pendiente"
+    },
+    {
+      "id": 2,
+      "clienteId": 2,
+      "contacto": "Javier Salgado",
+      "mensaje": "Te compartí el resumen del portal y los requisitos de privacidad para el equipo clínico.",
+      "fecha": "2026-11-19T13:00:00-06:00",
+      "proximoPaso": "Agendar revisión con sistemas",
+      "estado": "Pendiente"
+    },
+    {
+      "id": 3,
+      "clienteId": 3,
+      "contacto": "Fernanda Ruiz",
+      "mensaje": "Ya quedó listo el primer estimado de integración de inventario.",
+      "fecha": "2026-11-20T09:30:00-06:00",
+      "proximoPaso": "Enviar cotización formal",
+      "estado": "Programado"
+    },
+    {
+      "id": 4,
+      "clienteId": 4,
+      "contacto": "Roberto Cárdenas",
+      "mensaje": "Gracias por confirmar el diagnóstico. Te envío el plan de inicio para la próxima semana.",
+      "fecha": "2026-11-18T16:10:00-06:00",
+      "proximoPaso": "Compartir plan de inicio",
+      "estado": "Completado"
+    }
+  ],
+  "documentos": [
+    {
+      "id": 1,
+      "nombre": "Propuesta_automatizacion_rutas.pdf",
+      "categoria": "Propuesta",
+      "clienteId": 1,
+      "actualizado": "2026-11-18",
+      "tamano": "2.4 MB",
+      "estado": "Indexado"
+    },
+    {
+      "id": 2,
+      "nombre": "Acuerdo_nivel_servicio_2026.pdf",
+      "categoria": "Contrato",
+      "clienteId": 1,
+      "actualizado": "2026-11-16",
+      "tamano": "840 KB",
+      "estado": "Indexado"
+    },
+    {
+      "id": 3,
+      "nombre": "Requisitos_portal_pacientes.docx",
+      "categoria": "Requisitos",
+      "clienteId": 2,
+      "actualizado": "2026-11-17",
+      "tamano": "1.1 MB",
+      "estado": "Procesando"
+    },
+    {
+      "id": 4,
+      "nombre": "Diagnostico_cumplimiento.pdf",
+      "categoria": "Diagnóstico",
+      "clienteId": 4,
+      "actualizado": "2026-11-12",
+      "tamano": "3.8 MB",
+      "estado": "Indexado"
+    },
+    {
+      "id": 5,
+      "nombre": "Brief_asistente_interno.docx",
+      "categoria": "Brief",
+      "clienteId": 5,
+      "actualizado": "2026-11-09",
+      "tamano": "620 KB",
+      "estado": "Indexado"
+    }
+  ],
+  "tareas": [
+    {
+      "id": 1,
+      "titulo": "Alinear alcance del piloto de rutas",
+      "proyecto": "Grupo Horizonte · Automatización",
+      "prioridad": "Alta",
+      "estado": "En curso",
+      "avance": 68,
+      "responsable": "Carlos Mendoza",
+      "fechaLimite": "2026-11-21"
+    },
+    {
+      "id": 2,
+      "titulo": "Validar requisitos de privacidad",
+      "proyecto": "Clínica San Rafael · Portal",
+      "prioridad": "Alta",
+      "estado": "En revisión",
+      "avance": 82,
+      "responsable": "Ana Beltrán",
+      "fechaLimite": "2026-11-20"
+    },
+    {
+      "id": 3,
+      "titulo": "Preparar modelo de inventario",
+      "proyecto": "Norte Verde · Integración",
+      "prioridad": "Media",
+      "estado": "En curso",
+      "avance": 41,
+      "responsable": "Carlos Mendoza",
+      "fechaLimite": "2026-11-24"
+    },
+    {
+      "id": 4,
+      "titulo": "Compartir plan de inicio",
+      "proyecto": "Financiera del Bajío · Diagnóstico",
+      "prioridad": "Baja",
+      "estado": "Completada",
+      "avance": 100,
+      "responsable": "Ana Beltrán",
+      "fechaLimite": "2026-11-18"
+    }
+  ],
+  "actividadMensual": [
+    {
+      "mes": "Jun",
+      "valor": 42
+    },
+    {
+      "mes": "Jul",
+      "valor": 58
+    },
+    {
+      "mes": "Ago",
+      "valor": 51
+    },
+    {
+      "mes": "Sep",
+      "valor": 72
+    },
+    {
+      "mes": "Oct",
+      "valor": 66
+    },
+    {
+      "mes": "Nov",
+      "valor": 88
+    }
+  ],
+  "planes": [
+    {
+      "id": "starter",
+      "nombre": "Starter",
+      "descripcion": "Para equipos que comienzan a automatizar su operación.",
+      "precioMensual": 499,
+      "precioAnual": 399,
+      "usuarios": 3,
+      "caracteristicas": [
+        "1,000 consultas de IA al mes",
+        "5 GB de almacenamiento",
+        "Soporte en horario laboral"
+      ]
+    },
+    {
+      "id": "pro",
+      "nombre": "Pro",
+      "descripcion": "Coordinación y análisis para equipos en crecimiento.",
+      "precioMensual": 1299,
+      "precioAnual": 1039,
+      "usuarios": 15,
+      "caracteristicas": [
+        "Consultas de IA ilimitadas",
+        "100 GB de almacenamiento",
+        "Automatizaciones avanzadas"
+      ]
+    },
+    {
+      "id": "enterprise",
+      "nombre": "Enterprise",
+      "descripcion": "Gobernanza y controles para operaciones empresariales.",
+      "precioMensual": 3499,
+      "precioAnual": 2799,
+      "usuarios": 50,
+      "caracteristicas": [
+        "Modelos y permisos personalizados",
+        "Almacenamiento de 1 TB",
+        "Acompañamiento prioritario"
+      ]
+    }
+  ]
+}

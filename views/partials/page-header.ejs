@@ -1,0 +1,14 @@
+<div class="mb-7 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+  <div>
+    <p class="mb-2 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[.2em] text-cyan">
+      <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan"></span><%= eyebrow %>
+    </p>
+    <h1 class="text-2xl font-bold tracking-tight text-white sm:text-3xl"><%= heading %></h1>
+    <p class="mt-2 max-w-2xl text-sm leading-6 text-soft"><%= description %></p>
+  </div>
+  <% if (typeof actionHref !== 'undefined' && actionHref) { %>
+    <a href="<%= actionHref %>" class="inline-flex items-center justify-center gap-2 rounded-full bg-cyan px-4 py-2.5 text-sm font-semibold text-slate-950 shadow-[0_0_20px_rgba(76,215,246,.15)] transition hover:bg-white">
+      <span class="material-symbols-outlined text-[18px]"><%= actionIcon || 'arrow_forward' %></span><%= actionLabel %>
+    </a>
+  <% } %>
+</div>

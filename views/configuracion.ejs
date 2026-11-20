@@ -1,0 +1,68 @@
+<%- include('partials/head', { title: 'Perfil y configuración' }) %>
+<body>
+<%- include('partials/sidebar', { activePage }) %>
+<div class="lg:pl-64">
+  <%- include('partials/topbar') %>
+  <main class="px-4 pb-12 pt-36 sm:px-6 lg:px-10 lg:pt-24">
+    <%- include('partials/page-header', {
+      eyebrow: 'Entorno privado · Cuenta ejecutiva',
+      heading: 'Perfil y configuración',
+      description: 'Actualiza los datos de contacto y preferencias del espacio de trabajo local.'
+    }) %>
+
+    <% if (saved) { %><div class="mb-5 rounded-xl border border-emerald-400/30 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-200">Los cambios del perfil se guardaron correctamente.</div><% } %>
+
+    <div class="grid gap-5 xl:grid-cols-[.8fr_1.2fr]">
+      <section class="panel p-5 sm:p-6">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <span class="grid h-16 w-16 place-items-center rounded-full bg-cyan/10 text-lg font-bold text-cyan"><%= database.usuario.nombre.split(' ').map((part) => part[0]).slice(0, 2).join('') %></span>
+            <h2 class="mt-4 text-xl font-bold text-white"><%= database.usuario.nombre %></h2>
+            <p class="mt-1 text-sm text-cyan"><%= database.usuario.cargo %></p>
+            <p class="mt-1 text-xs text-soft"><%= database.usuario.correo %></p>
+          </div>
+          <span class="badge badge-success">Cuenta activa</span>
+        </div>
+        <div class="mt-6 space-y-3 border-t border-line pt-5 text-xs">
+          <div class="flex justify-between gap-4"><span class="text-soft">Empresa</span><span class="text-right text-slate-100"><%= database.usuario.empresa %></span></div>
+          <div class="flex justify-between gap-4"><span class="text-soft">Plan actual</span><span class="text-right text-slate-100"><%= database.planes.find((plan) => plan.id === database.suscripcion.planId)?.nombre || 'Sin plan' %></span></div>
+          <div class="flex justify-between gap-4"><span class="text-soft">Renovación</span><span class="text-right text-slate-100"><%= database.suscripcion.renovacion %></span></div>
+          <div class="flex justify-between gap-4"><span class="text-soft">Zona horaria</span><span class="text-right text-slate-100"><%= database.usuario.zonaHoraria %></span></div>
+        </div>
+      </section>
+
+      <section class="panel p-5 sm:p-6">
+        <div class="mb-5"><p class="text-sm font-semibold text-white">Información ejecutiva</p><p class="mt-1 text-xs text-soft">Los cambios se escriben en <code>data/db.json</code>.</p></div>
+        <form action="/configuracion" method="post" class="grid gap-4 sm:grid-cols-2">
+          <label class="block text-xs font-medium text-soft">Nombre completo
+            <input class="field mt-2" name="nombre" value="<%= database.usuario.nombre %>" maxlength="80" required>
+          </label>
+          <label class="block text-xs font-medium text-soft">Cargo
+            <input class="field mt-2" name="cargo" value="<%= database.usuario.cargo %>" maxlength="80" required>
+          </label>
+          <label class="block text-xs font-medium text-soft">Correo electrónico
+            <input class="field mt-2" name="correo" type="email" value="<%= database.usuario.correo %>" maxlength="120" required>
+          </label>
+          <label class="block text-xs font-medium text-soft">Teléfono
+            <input class="field mt-2" name="telefono" type="tel" value="<%= database.usuario.telefono %>" maxlength="30">
+          </label>
+          <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-line bg-background/50 p-4 text-xs text-slate-200 sm:col-span-2">
+            <input type="checkbox" name="notificaciones" <%= database.usuario.notificaciones ? 'checked' : '' %> class="h-4 w-4 accent-cyan">
+            Recibir notificaciones operativas y recordatorios de seguimiento.
+          </label>
+          <div class="sm:col-span-2"><button type="submit" class="rounded-full bg-cyan px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-white">Guardar cambios</button></div>
+        </form>
+      </section>
+    </div>
+
+    <section class="panel mt-5 p-5 sm:p-6">
+      <div class="mb-4 flex items-center justify-between"><div><p class="text-sm font-semibold text-white">Seguridad del espacio</p><p class="mt-1 text-xs text-soft">Indicadores ilustrativos de la maqueta de Stitch</p></div><span class="material-symbols-outlined text-cyan">verified_user</span></div>
+      <div class="grid gap-3 sm:grid-cols-3">
+        <div class="rounded-xl border border-line bg-background/50 p-4"><p class="text-xs text-soft">Estado de la cuenta</p><p class="mt-2 text-sm font-semibold text-emerald-300">Verificada</p></div>
+        <div class="rounded-xl border border-line bg-background/50 p-4"><p class="text-xs text-soft">Autenticación</p><p class="mt-2 text-sm font-semibold text-slate-100">Demo local, sin sesiones</p></div>
+        <div class="rounded-xl border border-line bg-background/50 p-4"><p class="text-xs text-soft">Idioma</p><p class="mt-2 text-sm font-semibold text-slate-100"><%= database.usuario.idioma %></p></div>
+      </div>
+    </section>
+  </main>
+</div>
+<%- include('partials/shell-end') %>
