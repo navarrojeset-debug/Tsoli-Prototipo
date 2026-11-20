@@ -1,6 +1,7 @@
 import express from "express";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import pool from "./config/db.js";
 import actionsRouter from "./routes/actions.js";
 import pagesRouter from "./routes/pages.js";
 
@@ -69,10 +70,16 @@ app.use((error, req, res, next) => {
   res.status(500).render("error", {
     status: 500,
     title: "No se pudo completar la solicitud",
-    message: "Ocurrió un error al cargar los datos locales. Revisa la terminal para más detalles."
+    message: "Ocurrió un error al cargar los datos de MySQL. Revisa la terminal para más detalles."
   });
 });
 
-app.listen(port, () => {
-  console.log(`TSOLI OS disponible en http://localhost:${port}`);
-});
+try {
+  await pool.query("SELECT 1");
+  app.listen(port, () => {
+    console.log(`TSOLI OS disponible en http://localhost:${port}`);
+  });
+} catch (error) {
+  console.error("No se pudo conectar con MySQL; el servidor no se inició.", error);
+  process.exitCode = 1;
+}
