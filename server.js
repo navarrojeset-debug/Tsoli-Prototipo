@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from "express";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -20,6 +21,7 @@ app.locals.navigation = [
   { id: "copiloto", label: "Copiloto IA", href: "/copiloto", icon: "smart_toy" },
   { id: "proyectos", label: "Proyectos", href: "/proyectos", icon: "folder_managed" },
   { id: "documentos", label: "Documentos", href: "/documentos", icon: "description" },
+  { id: "base-datos", label: "Base de Datos", href: "/base-datos", icon: "database" },
   { id: "configuracion", label: "Perfil y configuración", href: "/configuracion", icon: "settings" },
   { id: "planes", label: "Planes y suscripción", href: "/planes", icon: "credit_card" }
 ];

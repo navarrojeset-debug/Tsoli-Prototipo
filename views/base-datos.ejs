@@ -1,0 +1,105 @@
+<%- include('partials/head', { title: 'Base de Datos' }) %>
+<body>
+<%- include('partials/sidebar', { activePage }) %>
+<div class="lg:pl-64">
+  <%- include('partials/topbar') %>
+  <main class="px-4 pb-12 pt-36 sm:px-6 lg:px-10 lg:pt-24">
+    <%- include('partials/page-header', {
+      eyebrow: 'Datos en vivo · MySQL',
+      heading: 'Base de Datos',
+      description: 'Explora las tablas y registros actuales de la base MySQL conectada.'
+    }) %>
+
+    <section class="panel mb-7 flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between">
+      <form action="/base-datos" method="get">
+        <button type="submit" class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-cyan px-4 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-white sm:w-auto">
+          <span class="material-symbols-outlined text-[18px]">refresh</span>Actualizar datos
+        </button>
+      </form>
+      <p class="text-xs text-soft sm:ml-auto"><span class="material-symbols-outlined mr-1 align-middle text-[16px]">search</span>Usa el buscador superior para filtrar <%= recordCount %> registros en <%= tables.length %> tablas.</p>
+    </section>
+
+    <section class="mb-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+      <% tables.forEach((table, index) => { %>
+        <a href="#tabla-<%= index %>" class="panel flex items-center justify-between gap-4 p-4 transition hover:border-cyan/50">
+          <div class="min-w-0">
+            <p class="truncate text-sm font-semibold text-white"><%= table.label %></p>
+            <p class="mt-1 truncate text-[11px] text-soft"><%= table.name %></p>
+          </div>
+          <span class="shrink-0 rounded-full bg-cyan/10 px-3 py-1 text-sm font-bold text-cyan"><%= table.records.length %></span>
+        </a>
+      <% }); %>
+      <% if (!tables.length) { %>
+        <article class="panel p-5 text-sm text-soft">No se encontraron tablas en la base de datos seleccionada.</article>
+      <% } %>
+    </section>
+
+    <nav class="mb-5 flex gap-2 overflow-x-auto pb-2" aria-label="Tablas de la base de datos">
+      <% tables.forEach((table, index) => { %>
+        <a href="#tabla-<%= index %>" class="shrink-0 rounded-full border border-line bg-surface px-3 py-2 text-xs font-medium text-soft transition hover:border-cyan/50 hover:text-cyan"><%= table.label %></a>
+      <% }); %>
+    </nav>
+
+    <div class="space-y-6">
+      <% tables.forEach((table, index) => { %>
+        <section id="tabla-<%= index %>" class="panel overflow-hidden scroll-mt-36">
+          <div class="flex flex-wrap items-center justify-between gap-3 px-5 py-5 sm:px-6">
+            <div>
+              <h2 class="text-sm font-semibold text-white"><%= table.label %></h2>
+              <p class="mt-1 text-xs text-soft"><%= table.name %> · <%= table.records.length %> registros · <%= table.columns.length %> columnas</p>
+            </div>
+            <span class="rounded-full bg-raised px-3 py-1 text-[10px] font-medium text-soft">MySQL</span>
+          </div>
+          <% if (table.columns.length) { %>
+            <div class="overflow-x-auto">
+              <table class="w-full min-w-max text-left text-xs">
+                <thead class="bg-background/60 text-[10px] uppercase tracking-wider text-soft">
+                  <tr>
+                    <% table.columns.forEach((column) => { %>
+                      <th class="whitespace-nowrap px-4 py-3 font-medium first:pl-5 last:pr-5"><%= column.replace(/_/g, " ") %></th>
+                    <% }); %>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% table.records.forEach((record) => { %>
+                    <tr class="table-row hover:bg-white/[.02]" data-searchable>
+                      <% table.columns.forEach((column) => {
+                        const value = record[column];
+                        const normalizedColumn = column.replace(/([a-z])([A-Z])/g, "$1_$2").toLocaleLowerCase("es-MX");
+                        const currencyColumn = /(^|_)(subtotal|iva|total|valor|precio|monto|importe|costo|saldo)(_|$)/.test(normalizedColumn);
+                        const displayValue = value === null || value === undefined
+                          ? "—"
+                          : typeof value === "object"
+                            ? JSON.stringify(value)
+                            : String(value);
+                        const numericValue = typeof value === "number"
+                          ? value
+                          : typeof value === "string" && value.trim() !== ""
+                            ? Number(value)
+                            : Number.NaN;
+                      %>
+                        <td class="max-w-80 whitespace-nowrap px-4 py-3 text-slate-300 first:pl-5 last:pr-5">
+                          <% if (/^(estado|status)$/i.test(column)) { %>
+                            <span class="badge badge-neutral"><%= displayValue %></span>
+                          <% } else if (currencyColumn && Number.isFinite(numericValue)) { %>
+                            <span class="font-semibold text-white"><%= formatMXN(numericValue) %></span>
+                          <% } else { %>
+                            <%= displayValue %>
+                          <% } %>
+                        </td>
+                      <% }); %>
+                    </tr>
+                  <% }); %>
+                  <% if (!table.records.length) { %>
+                    <tr><td class="px-5 py-5 text-soft" colspan="<%= table.columns.length %>">Esta tabla no tiene registros.</td></tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          <% } %>
+        </section>
+      <% }); %>
+    </div>
+  </main>
+</div>
+<%- include('partials/shell-end') %>

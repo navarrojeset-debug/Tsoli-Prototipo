@@ -1,4 +1,5 @@
 import { Router } from "express";
+import pool from "../config/db.js";
 import { readDatabase } from "../data/store.js";
 
 const router = Router();
@@ -26,6 +27,37 @@ function withClientNames(database) {
 }
 
 router.get("/", (req, res) => res.redirect("/dashboard"));
+
+router.get(
+  "/base-datos",
+  asyncHandler(async (req, res) => {
+    const [tableRows] = await pool.query(
+      `SELECT TABLE_NAME AS tableName
+       FROM information_schema.TABLES
+       WHERE TABLE_SCHEMA = DATABASE() AND TABLE_TYPE = 'BASE TABLE'
+       ORDER BY TABLE_NAME`
+    );
+    const tables = await Promise.all(tableRows.map(async ({ tableName }) => {
+      const escapedName = tableName.replace(/`/g, "``");
+      const [records, fields] = await pool.query(`SELECT * FROM \`${escapedName}\``);
+      return {
+        name: tableName,
+        label: tableName.replace(/_/g, " ").replace(/\b\w/g, (letter) => letter.toLocaleUpperCase("es-MX")),
+        columns: fields.map(({ name }) => name),
+        records
+      };
+    }));
+    const user = tables.find((table) => table.name === "usuarios")?.records[0];
+
+    res.set("Cache-Control", "no-store");
+    res.render("base-datos", {
+      activePage: "base-datos",
+      database: { usuario: { nombre: user?.nombre || "Equipo Tsoli" } },
+      tables,
+      recordCount: tables.reduce((total, table) => total + table.records.length, 0)
+    });
+  })
+);
 
 router.get("/login", (req, res) => {
   res.render("login", { error: null });

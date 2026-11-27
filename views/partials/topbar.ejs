@@ -2,7 +2,7 @@
   <div class="flex h-[68px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
     <label class="flex w-full max-w-md items-center gap-2 rounded-full border border-line bg-surface px-3 py-2 text-soft focus-within:border-cyan/70">
       <span class="material-symbols-outlined text-[18px]">search</span>
-      <input class="w-full bg-transparent text-sm text-slate-100 outline-none placeholder:text-soft/70" type="search" data-filter-input placeholder="Buscar en esta pantalla...">
+      <input class="w-full bg-transparent text-sm text-slate-100 outline-none placeholder:text-soft/70" type="search" data-filter-input placeholder="<%= activePage === 'base-datos' ? 'Buscar en tablas y registros...' : 'Buscar en esta pantalla...' %>">
       <span class="hidden rounded-md bg-raised px-2 py-1 text-[10px] sm:inline">Ctrl K</span>
     </label>
     <div class="flex shrink-0 items-center gap-3">

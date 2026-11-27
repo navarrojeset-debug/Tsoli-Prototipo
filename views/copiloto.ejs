@@ -25,18 +25,18 @@
           </div>
           <span class="badge badge-success">OpenRouter</span>
         </div>
-        <div id="chat-messages" class="flex-1 space-y-5 p-5 sm:p-6" aria-live="polite">
+        <div id="chat-messages" class="flex-1 space-y-5 p-5 sm:p-6" data-chat-messages aria-live="polite">
           <div class="max-w-xl rounded-2xl rounded-tl-sm border border-line bg-background/70 p-4">
             <p class="text-xs font-semibold text-cyan">TSOLI · ASISTENTE</p>
             <p class="mt-2 text-sm leading-6 text-slate-200">Hola, <%= database.usuario.nombre.split(' ')[0] %>. Puedo resumir el pipeline comercial local o ayudarte a priorizar las alertas operativas. ¿Qué necesitas revisar?</p>
           </div>
         </div>
-        <form id="copilot-chat-form" action="/api/chat" method="post" class="border-t border-line p-4 sm:p-5">
+        <form id="copilot-chat-form" action="/api/chat" method="post" class="border-t border-line p-4 sm:p-5" data-chat-form>
           <div class="flex items-end gap-3 rounded-2xl border border-line bg-background p-3 focus-within:border-cyan/60">
-            <textarea id="copilot-message" name="message" rows="2" maxlength="1000" required placeholder="Pregunta por cotizaciones, clientes o alertas..." class="min-h-12 flex-1 resize-y bg-transparent text-sm text-white outline-none placeholder:text-soft/70"></textarea>
+            <textarea id="copilot-message" name="message" rows="2" maxlength="1000" required placeholder="Pregunta por cotizaciones, clientes o alertas..." class="min-h-12 flex-1 resize-y bg-transparent text-sm text-white outline-none placeholder:text-soft/70" data-chat-input></textarea>
             <button type="submit" class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-cyan text-slate-950 transition hover:bg-white disabled:cursor-wait disabled:opacity-50" aria-label="Enviar consulta"><span class="material-symbols-outlined">arrow_upward</span></button>
           </div>
-          <p id="chat-status" class="mt-2 text-[10px] text-soft" role="status" aria-live="polite">El chat usa OpenRouter. Se envía un resumen anonimizado; no incluyas datos personales ni información confidencial en tu pregunta.</p>
+          <p id="chat-status" class="mt-2 text-[10px] text-soft" role="status" aria-live="polite" data-chat-status>El chat usa OpenRouter. Se envía un resumen anonimizado; no incluyas datos personales ni información confidencial en tu pregunta.</p>
         </form>
       </article>
 

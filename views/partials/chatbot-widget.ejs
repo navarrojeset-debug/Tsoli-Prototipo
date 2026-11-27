@@ -1,0 +1,37 @@
+<div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3" data-chatbot-widget>
+  <section id="chatbot-panel" class="panel hidden flex h-[500px] max-h-[calc(100vh-7rem)] w-96 max-w-[calc(100vw-2rem)] flex-col overflow-hidden shadow-2xl shadow-black/40" data-chatbot-panel hidden aria-label="Copiloto IA">
+    <header class="flex items-center justify-between border-b border-line bg-surface px-4 py-3">
+      <div class="flex items-center gap-3">
+        <span class="grid h-10 w-10 place-items-center rounded-full bg-cyan/10 text-cyan"><span class="material-symbols-outlined">psychology</span></span>
+        <div>
+          <p class="text-sm font-semibold text-white">Copiloto IA</p>
+          <p class="mt-0.5 flex items-center gap-1.5 text-[10px] text-soft"><span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>Disponible · Tsoli</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-1">
+        <button type="button" class="grid h-9 w-9 place-items-center rounded-full text-soft transition hover:bg-raised hover:text-white" data-chatbot-close aria-label="Minimizar chat"><span class="material-symbols-outlined text-[18px]">remove</span></button>
+        <button type="button" class="grid h-9 w-9 place-items-center rounded-full text-soft transition hover:bg-raised hover:text-white" data-chatbot-close aria-label="Cerrar chat"><span class="material-symbols-outlined text-[18px]">close</span></button>
+      </div>
+    </header>
+
+    <div class="flex-1 space-y-4 overflow-y-auto p-4" data-chat-messages aria-live="polite">
+      <div class="max-w-[90%] rounded-2xl rounded-tl-sm border border-line bg-background/70 p-3">
+        <p class="text-[10px] font-semibold text-cyan">TSOLI · ASISTENTE</p>
+        <p class="mt-1.5 text-xs leading-5 text-slate-200">Hola. Puedo ayudarte a revisar el contexto de negocio y priorizar lo importante. ¿Qué necesitas consultar?</p>
+      </div>
+    </div>
+
+    <form action="/api/chat" method="post" class="border-t border-line p-3" data-chat-form>
+      <div class="flex items-end gap-2 rounded-2xl border border-line bg-background p-2.5 focus-within:border-cyan/60">
+        <textarea id="chatbot-message" name="message" rows="1" maxlength="1000" required placeholder="Escribe tu pregunta..." class="min-h-10 flex-1 resize-none bg-transparent px-1 py-1 text-xs text-white outline-none placeholder:text-soft/70" data-chat-input></textarea>
+        <button type="submit" class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-cyan text-slate-950 transition hover:bg-white disabled:cursor-wait disabled:opacity-50" aria-label="Enviar mensaje"><span class="material-symbols-outlined text-[18px]">arrow_upward</span></button>
+      </div>
+      <p class="mt-2 px-1 text-[10px] text-soft" role="status" aria-live="polite" data-chat-status>Consulta el resumen anonimizado del negocio.</p>
+    </form>
+  </section>
+
+  <button type="button" class="relative grid h-14 w-14 place-items-center rounded-full bg-cyan text-slate-950 shadow-[0_8px_30px_rgba(76,215,246,.28)] transition hover:scale-105 hover:bg-white focus:outline-none focus:ring-4 focus:ring-cyan/30" data-chatbot-toggle aria-expanded="false" aria-controls="chatbot-panel" aria-label="Abrir Copiloto IA">
+    <span class="material-symbols-outlined text-[28px]">smart_toy</span>
+    <span class="absolute right-0.5 top-0.5 h-3.5 w-3.5 rounded-full border-2 border-background bg-emerald-400" aria-label="Activo"></span>
+  </button>
+</div>
